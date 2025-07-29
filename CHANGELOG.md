@@ -15,6 +15,7 @@ and this project adheres to
   - #1235
   - #1255
   - #1262
+  - #1244
 
 ## [3.5.0] - 2025-07-31
 
@@ -34,7 +35,9 @@ and this project adheres to
 - 🔧(project) change env.d system by using local files #1200
 - ⚡️(frontend) improve tree stability #1207
 - ⚡️(frontend) improve accessibility #1232
-- 🛂(frontend) block drag n drop when not desktop #1239
+- 🛂(frontend) block drag n drop when not desktop 
+#1239
+
 
 ### Fixed
 

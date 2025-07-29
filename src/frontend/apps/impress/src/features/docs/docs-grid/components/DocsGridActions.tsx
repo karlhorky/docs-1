@@ -76,9 +76,14 @@ export const DocsGridActions = ({
     },
   ];
 
+  const documentTitle = doc.title || t('Untitled document');
+  const menuLabel = t('Open the menu of actions for the document: {{title}}', {
+    title: documentTitle,
+  });
+
   return (
     <>
-      <DropdownMenu options={options}>
+      <DropdownMenu options={options} label={menuLabel}>
         <Icon
           data-testid={`docs-grid-actions-button-${doc.id}`}
           iconName="more_horiz"

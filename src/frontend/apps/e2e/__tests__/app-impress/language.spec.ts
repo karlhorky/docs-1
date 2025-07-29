@@ -9,6 +9,7 @@ test.describe('Language', () => {
 
   test('checks language switching', async ({ page }) => {
     const header = page.locator('header').first();
+    const languagePicker = header.locator('.--docs--language-picker-text');
 
     await expect(page.locator('html')).toHaveAttribute('lang', 'en-us');
 
@@ -30,13 +31,49 @@ test.describe('Language', () => {
 
     await expect(page.getByLabel('Se déconnecter')).toBeVisible();
 
-    await header.getByRole('button').getByText('Français').click();
-    await page.getByLabel('Deutsch').click();
+    // Switch to German using the utility function for consistency
+    await waitForLanguageSwitch(page, TestLanguage.German);
     await expect(header.getByRole('button').getByText('Deutsch')).toBeVisible();
 
     await expect(page.getByLabel('Abmelden')).toBeVisible();
 
     await expect(page.locator('html')).toHaveAttribute('lang', 'de');
+
+    await languagePicker.click();
+
+    await expect(page.locator('[role="menu"]')).toBeVisible();
+
+    const menuItems = page.getByRole('menuitem');
+    await expect(menuItems.first()).toBeVisible();
+
+    await menuItems.first().click();
+
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(languagePicker).toContainText('English');
+  });
+  test('can switch language using only keyboard', async ({ page }) => {
+    await page.goto('/');
+    await waitForLanguageSwitch(page, TestLanguage.English);
+
+    const languagePicker = page.getByRole('button', {
+      name: /select language/i,
+    });
+
+    await expect(languagePicker).toBeVisible();
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    await page.keyboard.press('Enter');
+
+    const menu = page.getByRole('menu');
+    await expect(menu).toBeVisible();
+
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+
+    await expect(page.locator('html')).not.toHaveAttribute('lang', 'en-us');
   });
 
   test('checks that backend uses the same language as the frontend', async ({
