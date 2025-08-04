@@ -48,7 +48,7 @@ COMPOSE_RUN_CROWDIN = $(COMPOSE_RUN) crowdin crowdin
 
 # -- Backend
 MANAGE              = $(COMPOSE_RUN_APP) python manage.py
-MAIL_YARN           = $(COMPOSE_RUN) -w /app/src/mail node yarn
+MAIL_YARN           = $(COMPOSE_RUN) -w //app/src/mail node yarn
 
 # -- Frontend
 PATH_FRONT          = ./src/frontend

@@ -14,6 +14,11 @@ and this project adheres to
   - #1248
   - #1235
 
+### Fixed
+
+- 🐛(makefile) Windows compatibility fix for Docker volume mounting #1264
+
+
 ## [3.5.0] - 2025-07-31
 
 ### Added
